@@ -33,10 +33,10 @@ export class HomePage extends BasePage {
     return cy.get('#searchQuery input');   
   }
 
-  static get productsNames() {
+ static get productNames() {
     return cy
-    .get('[class="mat-grid-tile ng-star-inserted"]')
-    .find('[class="info-box"]')
+      .get('[class="mat-grid-tile ng-star-inserted"]')
+      .find('[class="info-box"]');
   }
 
   static get productBoxInfo() {
@@ -45,5 +45,22 @@ export class HomePage extends BasePage {
 
   static get closeButton() {
     return cy.get('.close-dialog')
+  }
+
+  static get openReview() {
+    return cy.get('[class="mat-expansion-indicator ng-star-inserted"]');
+  }
+
+  static get reviewInfo() {
+    return cy.get('mat-dialog-content .review-row');
+
+  }
+
+  static get addReview(){
+    return cy.get('[class="mat-mdc-form-field-infix ng-star-inserted"]');
+  }
+
+  static get sumbitReview() {
+    return cy.get('xxxx')
   }
 }

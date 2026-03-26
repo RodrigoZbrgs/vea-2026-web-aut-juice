@@ -85,17 +85,17 @@ describe('Juice-shop scenarios', () => {
     });
 
     // Create scenario - Search 500ml and validate Lemon, while having multiple cards
-   // Create scenario - Search 580ml and validate cards
-it.only('Search 580ml and validate cards', () => {
+   // Create scenario - Search 500ml and validate cards
+it.only('Search 500ml and validate cards', () => {
     // Click on search icon
     HomePage.searchIcon.click();
 
     // Search for 580ml
-    HomePage.searchField.type('580ml{enter}');
+    HomePage.searchField.type('500ml{enter}');
 
-    // Select a product card - Eggfruit Juice (580ml)
+    // Select a product card - Eggfruit Juice (500ml)
     HomePage.productNames
-        .contains('Eggfruit Juice (580ml)')
+        .contains('Eggfruit Juice (500ml)')
         .click();
 
     // Validate that the card (should) contains "Now with even more exotic flavour."
@@ -106,7 +106,7 @@ it.only('Search 580ml and validate cards', () => {
 
     // Select a product card - Lemon Juice (580ml)
     HomePage.productNames
-        .contains('Lemon Juice (580ml)')
+        .contains('Lemon Juice (500ml)')
         .click();
 
     // Validate that the card (should) contains "Sour but full of vitamins."
@@ -117,7 +117,7 @@ it.only('Search 580ml and validate cards', () => {
 
     // Select a product card - Strawberry Juice (580ml)
     HomePage.productNames
-        .contains('Strawberry Juice (580ml)')
+        .contains('Strawberry Juice (500ml)')
         .click();
 
     // Validate that the card (should) contains "Sweet & tasty!"
@@ -127,33 +127,38 @@ it.only('Search 580ml and validate cards', () => {
     HomePage.closeButton.click();
 });
 
-    // Create scenario - Search 500ml and validate cards
-    // Click on search icon
-    // Search for 500ml
-    // Select a product card - Eggfruit Juice (500ml)
-    // Validate that the card (should) contains "Now with even more exotic flavour."
-    // Close the card
-    // Select a product card - Lemon Juice (500ml)
-    // Validate that the card (should) contains "Sour but full of vitamins."
-    // Close the card
-    // Select a product card - Strawberry Juice (500ml)
-    // Validate that the card (should) contains "Sweet & tasty!"
-
     // Create scenario - Read a review
+    it.only('Read a review', () => {
     // Click on search icon
+    HomePage.searchIcon.click();
     // Search for King
+    HomePage.searchField.type('King{enter}');
     // Select a product card - OWASP Juice Shop "King of the Hill" Facemask
+    HomePage.productNames
+        .contains('"King of the Hill" Facemask')
+        .click();
     // Click expand reviews button/icon (wait for reviews to appear)
+    HomePage.openReview.click();
     // Validate review - K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!
+     HomePage.reviewInfo.should('contain.text', 'K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!');
+    });
 
     // Create scenario - Add a review
-    // Click on search icon
+   it.only('Add a review', () => {
+     // Click on search icon
+     HomePage.searchIcon.click();
     // Search for Raspberry
+     HomePage.searchField.type('Raspberry{enter}');
     // Select a product card - Raspberry Juice (1000ml)
+     HomePage.productNames
+        .contains('Raspberry Juice (1000ml)')
+        .click();
     // Type in review - "Tastes like metal"
     // Click Submit
     // Click expand reviews button/icon (wait for reviews to appear)
     // Validate review -  "Tastes like metal"
+  });
+  
 
     // Create scenario - Validate product card amount
     // Validate that the default amount of cards is 12
