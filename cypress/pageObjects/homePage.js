@@ -57,10 +57,10 @@ export class HomePage extends BasePage {
   }
 
   static get addReview(){
-    return cy.get('[class="mat-mdc-form-field-infix ng-star-inserted"]');
+    return cy.get('[aria-label="Text field to review a product"]');
   }
 
-  static get sumbitReview() {
-    return cy.get('xxxx')
+  static get submitReview() {
+    return cy.get('#submitButton');
   }
 }

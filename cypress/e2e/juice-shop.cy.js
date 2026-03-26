@@ -86,7 +86,7 @@ describe('Juice-shop scenarios', () => {
 
     // Create scenario - Search 500ml and validate Lemon, while having multiple cards
    // Create scenario - Search 500ml and validate cards
-it.only('Search 500ml and validate cards', () => {
+it('Search 500ml and validate cards', () => {
     // Click on search icon
     HomePage.searchIcon.click();
 
@@ -128,7 +128,7 @@ it.only('Search 500ml and validate cards', () => {
 });
 
     // Create scenario - Read a review
-    it.only('Read a review', () => {
+    it('Read a review', () => {
     // Click on search icon
     HomePage.searchIcon.click();
     // Search for King
@@ -154,13 +154,20 @@ it.only('Search 500ml and validate cards', () => {
         .contains('Raspberry Juice (1000ml)')
         .click();
     // Type in review - "Tastes like metal"
+    HomePage.addReview
+    .click()
+    .type("Tastes like metal");
     // Click Submit
+    HomePage.submitReview.click();
     // Click expand reviews button/icon (wait for reviews to appear)
+    HomePage.openReview.click();
     // Validate review -  "Tastes like metal"
+     HomePage.reviewInfo.should('contain.text', 'Tastes like metal');
   });
   
 
     // Create scenario - Validate product card amount
+    
     // Validate that the default amount of cards is 12
     // Change items per page (at the bottom of page) to 24
     // Validate that the amount of cards is 24
