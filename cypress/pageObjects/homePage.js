@@ -22,7 +22,7 @@ export class HomePage extends BasePage {
   }
 
   static get userProfileButton() {
-    return cy.get(button['aria-label="Go to user profile"']);
+    return cy.get('[aria-label="Go to user profile"]');
   }
 
   static get searchIcon() {
@@ -47,6 +47,7 @@ export class HomePage extends BasePage {
     return cy.get('.close-dialog')
   }
 
+  //read a review
   static get openReview() {
     return cy.get('[class="mat-expansion-indicator ng-star-inserted"]');
   }
@@ -56,6 +57,7 @@ export class HomePage extends BasePage {
 
   }
 
+//add a review
   static get addReview(){
     return cy.get('[aria-label="Text field to review a product"]');
   }
@@ -63,4 +65,20 @@ export class HomePage extends BasePage {
   static get submitReview() {
     return cy.get('#submitButton');
   }
+
+  static get ordersAndPayment() {
+    return cy.get("button[aria-label='Show Orders and Payment Menu']");
+  }
+
+  static get mySavedAddresses() {
+    return cy.get("button[aria-label='Go to saved address page']");
+  }
+
+  static get myPaymentOptions() {
+    return cy.get("button[aria-label='Go to saved payment methods page']");
+  }
+
+  static get addNewAddress() {
+    return cy.get("button[aria-label='Add a new address']");
+}
 }

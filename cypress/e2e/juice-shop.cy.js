@@ -1,6 +1,10 @@
+import { BuyGirlieTShirt } from '../pageObjects/buyGirlieTShirt';
+import { CreateNewAddressPage } from '../pageObjects/createNewAddressPage';
 import { HomePage } from '../pageObjects/HomePage';
 import { LoginPage } from '../pageObjects/loginPage';
+import { ProductCards } from '../pageObjects/productCards';
 import { RegistrationPage } from '../pageObjects/registrationPage';
+import { SavedPaymentMethodsPage } from '../pageObjects/savedPaymentMethodsPage';
 
 describe('Juice-shop scenarios', () => {
   context('Without auto login', () => {
@@ -60,7 +64,7 @@ describe('Juice-shop scenarios', () => {
       // Click Account button
       HomePage.accountButton.click();
       // Validate that account name (with previously created email address) appears in the menu section
-      HomePage.userProfileButton.should('containt.text', email);
+      HomePage.userProfileButton.should('contain.text', email);
     });
   });
 
@@ -84,8 +88,6 @@ describe('Juice-shop scenarios', () => {
    );
     });
 
-    // Create scenario - Search 500ml and validate Lemon, while having multiple cards
-   // Create scenario - Search 500ml and validate cards
 it('Search 500ml and validate cards', () => {
     // Click on search icon
     HomePage.searchIcon.click();
@@ -144,7 +146,7 @@ it('Search 500ml and validate cards', () => {
     });
 
     // Create scenario - Add a review
-   it.only('Add a review', () => {
+   it('Add a review', () => {
      // Click on search icon
      HomePage.searchIcon.click();
     // Search for Raspberry
@@ -167,56 +169,113 @@ it('Search 500ml and validate cards', () => {
   
 
     // Create scenario - Validate product card amount
-    
+     it('Validate product card amount', () => {
     // Validate that the default amount of cards is 12
+    ProductCards.productCardsCount.should('have.length', 12);
     // Change items per page (at the bottom of page) to 24
+    ProductCards.itemsPerPage.click()
+    ProductCards.itemsPerPage_24.click()
     // Validate that the amount of cards is 24
+     ProductCards.productCardsCount.should('have.length', 24);
     // Change items per page (at the bottom of page) to 36
-    // Validate that the amount of cards is 35
+    ProductCards.itemsPerPage.click()
+    ProductCards.itemsPerPage_36.click()
+    // Validate that the amount of cards is 36
+    ProductCards.productCardsCount.should('have.length', 36);
+     });
 
     // Create scenario - Buy Girlie T-shirt
+  it('Buy Girlie T-Shirt', () => {
     // Click on search icon
+    HomePage.searchIcon.click();
     // Search for Girlie
+    HomePage.searchField.type('Girlie{enter}');
     // Add to basket "Girlie"
+    BuyGirlieTShirt.clickAddBasketButton.click();
     // Click on "Your Basket" button
+    BuyGirlieTShirt.clickMyBasket.click();
     // Create page object - BasketPage
     // Click on "Checkout" button
+    BuyGirlieTShirt.clickCheckOut.click();
     // Create page object - SelectAddressPage
     // Select address containing "United Fakedom"
+    BuyGirlieTShirt.selectAddress.click();
     // Click Continue button
+    BuyGirlieTShirt.clickContinue.click();
     // Create page object - DeliveryMethodPage
     // Select delivery speed Standard Delivery
+    BuyGirlieTShirt.selectDelivery.click();
     // Click Continue button
+    BuyGirlieTShirt.clickContinueToPayment.click();
     // Create page object - PaymentOptionsPage
     // Select card that ends with "5678"
+    BuyGirlieTShirt.selectCard.click();
     // Click Continue button
+    BuyGirlieTShirt.clickContinueToReview.click();
     // Create page object - OrderSummaryPage
     // Click on "Place your order and pay"
+    BuyGirlieTShirt.placeOrderAndPay.click();
     // Create page object - OrderCompletionPage
     // Validate confirmation - "Thank you for your purchase!"
+    BuyGirlieTShirt.purchaseValidation.should('contain.text', 'Thank you for your purchase!');
+  });
+
 
     // Create scenario - Add address
+    it('Add address', () => {
     // Click on Account
+    HomePage.accountButton.click();
     // Click on Orders & Payment
+    HomePage.ordersAndPayment.click();
     // Click on My saved addresses
-    // Create page object - SavedAddressesPage
+    HomePage.mySavedAddresses.click();
     // Click on Add New Address
-    // Create page object - CreateAddressPage
+    HomePage.addNewAddress.click();
     // Fill in the necessary information
+    CreateNewAddressPage.countryField.type('United Fakedom');
+    CreateNewAddressPage.nameField.type('Rodrigo Doe');
+    CreateNewAddressPage.mobileNumberField.type('1111111111');
+    CreateNewAddressPage.zipCodeField.type('666666');
+    CreateNewAddressPage.addressField.type('I Dont Know 6');
+    CreateNewAddressPage.cityField.type('Dont Know Town');
+    CreateNewAddressPage.stateField.type('IDK');
     // Click Submit button
+     CreateNewAddressPage.submitButton.click();
     // Validate that previously added address is visible
+    cy.contains('United Fakedom').should('be.visible');
+    cy.contains('Rodrigo Doe').should('be.visible');
+    cy.contains('666666').should('be.visible')
+    cy.contains('I Dont Know 6').should('be.visible');
+    cy.contains('Dont Know Town').should('be.visible');
+    cy.contains('IDK').should('be.visible');
 
+  });
     // Create scenario - Add payment option
-    // Click on Account
+  it('Add new payment option', () => {
+  // Click on Account
+    HomePage.accountButton.click();
     // Click on Orders & Payment
+    HomePage.ordersAndPayment.click();
     // Click on My payment options
+    HomePage.myPaymentOptions.click();
     // Create page object - SavedPaymentMethodsPage
     // Click Add new card
+    SavedPaymentMethodsPage.addNewCardDropdown.click();
     // Fill in Name
+    SavedPaymentMethodsPage.nameField.type('Rodrigo Doe');
     // Fill in Card Number
+     SavedPaymentMethodsPage.cardNumberField.type('4743766674532111');
     // Set expiry month to 7
+    SavedPaymentMethodsPage.expiryMonthField.select('7');
     // Set expiry year to 2090
+     SavedPaymentMethodsPage.expiryYearField.select('2090');
     // Click Submit button
+    SavedPaymentMethodsPage.submitButton.click();
     // Validate that the card shows up in the list
+    cy.contains('************2111').should('be.visible');
+    cy.contains('Rodrigo Doe').should('be.visible');
+    cy.contains('7/2090').should('be.visible');
+  })
+  
   });
 });
